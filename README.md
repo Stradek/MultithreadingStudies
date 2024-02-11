@@ -2,7 +2,7 @@
 ## Description
 Repository consists of multithreading project where I have sandbox for implementing multithreaded algorithms with my own JobScheduler class.
 
-## Current projects:
+## Current projects
 * Multithreaded Merge Sort: `src\mt_merge_sort`
 
 
