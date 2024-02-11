@@ -26,7 +26,7 @@ void printArray(const std::vector<int>& array)
     {
 		printf("%d ", array[i]);
 	}
-	printf("\n");
+	printf("\n\n");
 }
 
 int main()
@@ -40,7 +40,6 @@ int main()
     
     printf("Unsorted array:\n");
     printArray(numbersToSortArray);
-    printf("\n");
 
     std::vector<int> sortedArray;
     MergeSort::topDownMergeSort(numbersToSortArray, sortedArray);
