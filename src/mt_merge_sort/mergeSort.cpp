@@ -5,6 +5,8 @@
 
 #include "mergeSort.h"
 
+#include <cassert>
+
 // algorithms from https://en.wikipedia.org/wiki/Merge_sort
 
 // arrayToSort[] has the items to sort; outputSortedArray[] is a output array with sorted items.
