@@ -6,7 +6,7 @@
 #include "mergeSort.h"
 #include "jobScheduler.h"
 
-#include <stdio.h>
+#include <iostream>
 #include <vector>
 #include <thread>
 #include <functional>
@@ -25,9 +25,9 @@ void printArray(const std::vector<int>& array)
 
     for (size_t i = 0; i < size; i++)
     {
-		printf("%d ", array[i]);
+		std::cout << array[i] << " ";
 	}
-	printf("\n\n");
+	std::cout << "\n" << std::endl;
 }
 
 void testMergeSort(std::function<void(std::vector<int>&, std::vector<int>&)> mergeSortFunction)
@@ -51,7 +51,7 @@ void testMergeSort(std::function<void(std::vector<int>&, std::vector<int>&)> mer
 	std::chrono::high_resolution_clock::time_point end_time = std::chrono::high_resolution_clock::now();
 
 	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(end_time - start_time);
-	printf("Sorting time: %f\n", time_span.count());
+	std::cout << "Sorting time:" << time_span.count() << std::endl;
 
 	// test here if array is correctly sorted
 
@@ -65,20 +65,20 @@ int main()
 {
     srand(time(NULL));
 
-    printf("Hello mad world!\n");
-
-	printf("Testing one threaded merge sort:\n");
+	std::cout << "Testing sigle-threaded merge sort:" << std::endl;
 	testMergeSort(MergeSort::topDownMergeSort);
 
 	// Create JobScheduler instance now to avoid wasting time during the test
 	std::shared_ptr<JobScheduler> jobSchedulerInstance = JobScheduler::createInstance(4);
 
-	printf("Testing multithreaded merge sort:\n");
+	std::cout << "Testing multithreaded merge sort:" << std::endl;
 	for (int i = 0; i < 100; i++)
 	{
-		printf("Test %d:\n", i+1);
+		std::cout << "Test " << i+1 << std::endl;
 		testMergeSort(MergeSortMT::topDownMergeSortParallel);
 	}
+
+	std::getchar();
 
     return 0;
 }
