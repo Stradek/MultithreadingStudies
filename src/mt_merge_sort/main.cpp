@@ -74,7 +74,11 @@ int main()
 	std::shared_ptr<JobScheduler> jobSchedulerInstance = JobScheduler::createInstance(4);
 
 	printf("Testing multithreaded merge sort:\n");
-	testMergeSort(MergeSortMT::topDownMergeSortParallel);
+	for (int i = 0; i < 100; i++)
+	{
+		printf("Test %d:\n", i+1);
+		testMergeSort(MergeSortMT::topDownMergeSortParallel);
+	}
 
     return 0;
 }

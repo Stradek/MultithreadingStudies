@@ -13,7 +13,7 @@ void MergeSortMT::topDownSplitMergeParallel(std::vector<int>& arrayB, size_t iBe
 
     size_t iMiddle = (iEnd + iBegin) / 2;
 
-    auto func = &MergeSort::topDownSplitMergeParallel;
+    auto func = &MergeSort::topDownSplitMerge;
 
     auto jobSchedulerInstance = JobScheduler::getInstance();
     auto jobResult1 = jobSchedulerInstance->enqueueJob([=, &arrayA, &arrayB]() { func(arrayA, iBegin, iMiddle, arrayB); });
