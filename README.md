@@ -3,11 +3,11 @@
 Repository consists of multithreading project where I have sandbox for implementing multithreaded algorithms with my own JobScheduler class.
 
 ## Current projects:
-- Multithreaded Merge Sort: `src\mt_merge_sort`
+* Multithreaded Merge Sort: `src\mt_merge_sort`
 
 
 ## Prerequisities
-1. CMake (look for proper version in CMakeLists.txt) 
+* CMake (look for proper version in CMakeLists.txt) 
 
 ## Build
 ### VisualStudio 2022 on Windows
