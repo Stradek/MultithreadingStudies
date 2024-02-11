@@ -4,8 +4,10 @@ Repository consists of multithreading project where I have sandbox for implement
 
 ## Current projects
 ### Multithreaded Merge Sort [WIP]
-#### Location: `src\mt_merge_sort`
-#### Description: This project shows comparison between single-threaded merge sort and multi-threaded merge sort. I created job system that I queue two jobs that one calls MergeSort::topDownSplitMerge on one half of data set, and the other on second half of data set.
+#### Location: 
+`src\mt_merge_sort`
+#### Description: 
+This project shows comparison between single-threaded merge sort and multi-threaded merge sort. I created job system that I queue two jobs that one calls MergeSort::topDownSplitMerge on one half of data set, and the other on second half of data set.
 #### Finished project acceptance criteria:
 For both implementations of merge sort:
   - [x] I have functions working
