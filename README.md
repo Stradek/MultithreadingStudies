@@ -7,7 +7,8 @@ Repository consists of multithreading project where I have sandbox for implement
 Location: `src\mt_merge_sort`
 Description: This project shows comparison between single-threaded merge sort and multi-threaded merge sort. I created job system that I queue two jobs that one calls MergeSort::topDownSplitMerge on one half of data set, and the other on second half of data set.
 Finished project acceptance criteria:
-- [x] I have merge sort and multi-threaded merge sort functions working 
+- [x] I have merge sort and multi-threaded merge sort functions working
+- [ ] I have job system working, stable for 10/10 multi-threaded merge sort tests
 - [ ] I am able to test duration of single-threaded and multi-threaded merge sort functions for data set consisting of: from 10^1 to 10^7 entries
 - [ ] I am able to test single-threaded and multi-threaded merge sort functions for output correctness
 - [ ] Multi-threaded merge sort can utilize job system inside all it's recursive functions
