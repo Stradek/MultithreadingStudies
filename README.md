@@ -11,7 +11,7 @@ This project shows comparison between single-threaded and multi-threaded merge s
 #### Finished project acceptance criteria:
 For both implementations of merge sort:
   - [x] I have both single-threaded and multi-threaded implementations of merge sort working
-  - [ ] I have function to test duration of both implementations
+  - [x] I have function to test duration of both implementations
   - [ ] I have function to test duration of both implementations with data set consisting of 7 test cases with entry size of: 10^1, 10^2, 10^3, ..., 10^7
   - [ ] I have unit tests that test both implementations of merge sort functions for output correctness
   
