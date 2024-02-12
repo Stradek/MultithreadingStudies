@@ -1,6 +1,6 @@
 /*
-    Copyright (c) 2023 Piotr Stradowski. All rights reserved.
-    Software distributed under the permissive MIT License.
+	Copyright (c) 2024 Piotr Stradowski. All rights reserved.
+	Software distributed under the permissive MIT License.
 */
 
 #include "mergeSort.h"

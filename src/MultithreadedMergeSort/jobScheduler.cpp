@@ -1,3 +1,8 @@
+/*
+    Copyright (c) 2024 Piotr Stradowski. All rights reserved.
+    Software distributed under the permissive MIT License.
+*/
+
 #include "jobScheduler.h"
 
 std::shared_ptr<JobScheduler> JobScheduler::m_instance = nullptr;
