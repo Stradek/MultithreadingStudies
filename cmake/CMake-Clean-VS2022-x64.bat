@@ -7,7 +7,7 @@ rem Software distributed under the permissive MIT License.
 set myPath=%~dp0
 
 if [%sourceDir%] == [] set sourceDir="%myPath%\.."
-if [%buildDir%] == [] set buildDir="%sourceDir%\Build\CMake-VS2022-x64"
+if [%buildDir%] == [] set buildDir="%sourceDir%\build\CMake-VS2022-x64"
 
 if not exist %buildDir% (
     goto :Error_CMakeDirectoryNotExist

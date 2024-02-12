@@ -5,7 +5,7 @@ Repository consists of multithreading project where I have sandbox for implement
 ## Current projects
 ### Multithreaded Merge Sort [WIP]
 #### Location: 
-`src\mt_merge_sort`
+`src\MultithreadedMergeSort`
 #### Description: 
 This project shows comparison between single-threaded and multi-threaded merge sort implementations.
 #### Finished project acceptance criteria:
@@ -32,8 +32,8 @@ For multi-threaded merge sort
 2. Open solution using `OpenProjectVS2022.bat`
 
 ### Other
-1. $ gh repo clone Stradek/multithreading_studies
-2. $ cd multithreading_studies
+1. $ gh repo clone Stradek/MultithreadingStudies
+2. $ cd MultithreadingStudies
 3. $ mkdir build
 4. $ cd build
 5. $ cmake .. -DCMAKE_BUILD_TYPE=Release

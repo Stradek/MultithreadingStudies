@@ -11,7 +11,7 @@ set arch=%3
 set presetsFile=%4
 
 if [%sourceDir%] == [] set sourceDir="%myPath%\.."
-if [%buildDir%] == [] set buildDir="%sourceDir%\Build\CMake-VS2022-x64"
+if [%buildDir%] == [] set buildDir="%sourceDir%\build\CMake-VS2022-x64"
 if [%arch%] == [] set arch="x64"
 
 echo ---- Preparing build directory...
@@ -30,13 +30,15 @@ if %ERRORLEVEL% NEQ 0 (
     goto Error_CMakeBuildingProjectFailed
 )
 
-pause
-goto:eof
+goto:EndCall
 
 :Error_CMakeNotInstalled
 echo "CMake is not installed or not in environmental path."
-goto:eof
+goto:EndCall
 
 :Error_CMakeBuildingProjectFailed
 echo "CMake failed to build the project for Visual Studio 2022."
-goto:eof
+goto:EndCall
+
+:EndCall
+pause

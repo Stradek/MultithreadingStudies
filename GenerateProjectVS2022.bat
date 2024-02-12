@@ -7,3 +7,4 @@ rem Software distributed under the permissive MIT License.
 set myPath=%~dp0
 
 call "%myPath%/cmake/CMake-VS2022-x64.bat"
+pause
