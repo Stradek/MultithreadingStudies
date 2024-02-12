@@ -38,7 +38,7 @@ public:
     auto enqueueJob(F&& function, Args... args) -> std::future<typename std::result_of<F(Args...)>::type>
     {
         // don't allow enqueueing after stopping the pool
-        assert(!m_stop)
+        assert(!m_stop);
 
         using ReturnType = typename std::invoke_result<F, Args...>::type;
         auto task = std::make_shared<std::packaged_task<ReturnType()>>(
