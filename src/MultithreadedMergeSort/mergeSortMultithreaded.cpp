@@ -31,12 +31,11 @@ void MergeSortMT::topDownSplitMergeParallel(std::vector<int>& arrayB, size_t iBe
     MergeSort::topDownMerge(arrayB, iBegin, iMiddle, iEnd, arrayA);
 }
 
-void MergeSortMT::topDownMergeSortParallel(std::vector<int>& arrayToSort, std::vector<int>& outputSortedArray)
+void MergeSortMT::topDownMergeSortParallel(std::vector<int>& arrayToSort, std::vector<int>& sortedArrayOutput)
 {
-    std::vector<int> workArray = arrayToSort;
+    // using sortedArrayOutput as work array
+    // it will contain the sorted array at the end of the function
+    sortedArrayOutput = arrayToSort;
 
-    topDownSplitMergeParallel(arrayToSort, 0, arrayToSort.size(), workArray);
-
-    // Copy sorted elements to sortedArray
-    outputSortedArray = workArray;
+    topDownSplitMergeParallel(arrayToSort, 0, arrayToSort.size(), sortedArrayOutput);
 }

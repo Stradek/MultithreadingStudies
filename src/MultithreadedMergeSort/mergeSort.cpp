@@ -9,15 +9,14 @@
 
 // algorithms from https://en.wikipedia.org/wiki/Merge_sort
 
-// arrayToSort[] has the items to sort; outputSortedArray[] is a output array with sorted items.
-void MergeSort::topDownMergeSort(std::vector<int>& arrayToSort, std::vector<int>& outputSortedArray)
+// arrayToSort[] has the items to sort; sortedArrayOutput[] is a output array with sorted items.
+void MergeSort::topDownMergeSort(std::vector<int>& arrayToSort, std::vector<int>& sortedArrayOutput)
 {
-    std::vector<int> workArray = arrayToSort;
+    // using sortedArrayOutput as work array
+    // it will contain the sorted array at the end of the function
+    sortedArrayOutput = arrayToSort;
 
-    topDownSplitMerge(arrayToSort, 0, arrayToSort.size(), workArray);
-
-    // Copy sorted elements to sortedArray
-    outputSortedArray = workArray;
+    topDownSplitMerge(arrayToSort, 0, arrayToSort.size(), sortedArrayOutput);
 }
 
 // Split arrayA[] into 2 runs, sort both runs into arrayB[], merge both runs from arrayB[] to arrayA[]
@@ -36,9 +35,9 @@ void MergeSort::topDownSplitMerge(std::vector<int>& arrayB, size_t iBegin, size_
     topDownMerge(arrayB, iBegin, iMiddle, iEnd, arrayA);
 }
 
-//  Left source half is arrayA[ iBegin:iMiddle-1].
-// Right source half is arrayA[iMiddle:iEnd-1   ].
-// Result is            arrayB[ iBegin:iEnd-1   ].
+// Left source half is  arrayA[ iBegin:iMiddle-1]
+// Right source half is arrayA[iMiddle:iEnd-1   ]
+// Result is            arrayB[ iBegin:iEnd-1   ]
 void MergeSort::topDownMerge(std::vector<int>& arrayB, size_t iBegin, size_t iMiddle, size_t iEnd, std::vector<int>& arrayA)
 {
     size_t i = iBegin, j = iMiddle;
