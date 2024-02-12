@@ -18,7 +18,7 @@ For both implementations of merge sort:
 For multi-threaded merge sort
   - [x] I have job system working, stable for 100/100 multi-threaded merge sort tests
   - [ ] Multi-threaded merge sort can utilize job system inside all it's recursive functions
-  - [ ] Multi-threaded merge sort has option for limiting job system utilization X level deep of recursive function, and is still thread-safe
+  - [ ] Multi-threaded merge sort has option for limiting job system utilization X level deep of recursive function
   - [ ] Multi-threaded merge sort limits job system utilization X level deep of recursive function, and uses algorithm that makes X statistically proven(with testing data) best limit for test case at relatively highest efficiency
   - [ ] Multi-threaded merge sort uses most optimal thread count for my hardware, and I have data that supports chosen thread count superiority in all test scenarios mentioned above
 
