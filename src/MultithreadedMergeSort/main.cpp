@@ -10,12 +10,19 @@
 #include <vector>
 #include <thread>
 #include <functional>
+#include <random>
+#include <numeric>
+#include <iomanip>
 
 void fillArrayWithRandomNumbers(std::vector<int>& array, size_t size)
 {
-    for (size_t i = 0; i < size; i++)
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(INT_MIN, INT_MAX);
+
+	for (size_t i = 0; i < size; i++)
     {
-		array.push_back(rand() % 100);
+		array.push_back(dis(gen));
 	}
 }
 
@@ -27,19 +34,14 @@ void printArray(const std::vector<int>& array)
     {
 		std::cout << array[i] << " ";
 	}
-	std::cout << "\n" << std::endl;
+	std::cout << std::endl;
 }
 
-void testMergeSort(std::function<void(std::vector<int>&, std::vector<int>&)> mergeSortFunction)
+std::chrono::duration<double> testMergeSortTime(std::function<void(std::vector<int>&, std::vector<int>&)> mergeSortFunction)
 {
 	std::vector<int> numbersToSortArray;
 	fillArrayWithRandomNumbers(numbersToSortArray, 10000);
 	
-	/*
-	printf("Unsorted array:\n");
-	printArray(numbersToSortArray);
-	*/
-
 	std::vector<int> sortedArray;
 
 	// start time measurement
@@ -50,35 +52,90 @@ void testMergeSort(std::function<void(std::vector<int>&, std::vector<int>&)> mer
 	// end time measurement
 	std::chrono::high_resolution_clock::time_point end_time = std::chrono::high_resolution_clock::now();
 
-	std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(end_time - start_time);
-	std::cout << "Sorting time:" << time_span.count() << std::endl;
+	std::chrono::duration<double> executionTime = std::chrono::duration_cast<std::chrono::duration<double>>(end_time - start_time);
+	std::cout << "Sorting time:" << executionTime.count() << std::endl;
 
 	// test here if array is correctly sorted
+	return executionTime;
+}
 
-	/*
-	printf("Sorted array:\n");
-	printArray(numbersToSortArray);
-	*/
+std::chrono::duration<double> getAverageTime(std::chrono::duration<double>* timesArray, size_t entriesCount)
+{
+	return std::accumulate(timesArray, timesArray + entriesCount, std::chrono::duration<double>(0)) / entriesCount;
+}
+
+std::chrono::duration<double> getMaxTime(std::chrono::duration<double>* timesArray, size_t entriesCount)
+{
+	return *std::max_element(timesArray, timesArray + entriesCount);
+}
+
+std::chrono::duration<double> getMinTime(std::chrono::duration<double>* timesArray, size_t entriesCount)
+{
+	return *std::min_element(timesArray, timesArray + entriesCount);
+}
+
+void printTimeResults(std::chrono::duration<double> average, std::chrono::duration<double> max, std::chrono::duration<double> min)
+{
+	std::cout << "Average time: " << average.count() << "s\n"
+		<< "Max time: " << max.count() << "s\n"
+		<< "Min time: " << min.count() << "s\n";
 }
 
 int main()
 {
     srand(time(NULL));
 
-	std::cout << "Testing sigle-threaded merge sort:" << std::endl;
-	testMergeSort(MergeSort::topDownMergeSort);
+	const size_t testsCount = 100;
+
+	std::cout << "Testing single-threaded merge sort:" << std::endl;
+	std::chrono::duration<double> singleThreadedTestTimes[testsCount];
+	for(int i = 0; i < testsCount; i++)
+	{
+		std::cout << "Test " << i+1 << std::endl;
+		const std::chrono::duration<double> testTime = testMergeSortTime(MergeSort::topDownMergeSort);
+		singleThreadedTestTimes[i] = testTime;
+	}
+
+	std::chrono::duration<double> singleThreadedAverage, singleThreadedMax, singleThreadedMin;
+	singleThreadedAverage = getAverageTime(singleThreadedTestTimes, testsCount);
+	singleThreadedMax = getMaxTime(singleThreadedTestTimes, testsCount);
+	singleThreadedMin = getMinTime(singleThreadedTestTimes, testsCount);
 
 	// Create JobScheduler instance now to avoid wasting time during the test
 	std::shared_ptr<JobScheduler> jobSchedulerInstance = JobScheduler::createInstance(4);
 
-	std::cout << "Testing multithreaded merge sort:" << std::endl;
-	for (int i = 0; i < 100; i++)
+	std::cout << "Testing multi-threaded merge sort:" << std::endl;
+	std::chrono::duration<double> multiThreadedTestTimes[testsCount];
+	for (int i = 0; i < testsCount; i++)
 	{
-		std::cout << "Test " << i+1 << std::endl;
-		testMergeSort(MergeSortMT::topDownMergeSortParallel);
+		std::cout << "Test " << i + 1 << std::endl;
+		const std::chrono::duration<double> testTime = testMergeSortTime(MergeSort::topDownMergeSort);
+		multiThreadedTestTimes[i] = testTime;
 	}
 
-	std::getchar();
+	std::chrono::duration<double> multiThreadedAverage, multiThreadedMax, multiThreadedMin;
+	multiThreadedAverage = getAverageTime(multiThreadedTestTimes, testsCount);
+	multiThreadedMax = getMaxTime(multiThreadedTestTimes, testsCount);
+	multiThreadedMin = getMinTime(multiThreadedTestTimes, testsCount);
 
+	std::cout << "\n\n" << "Single-threaded Merge Sort" << std::endl;
+	printTimeResults(singleThreadedAverage, singleThreadedMax, singleThreadedMin);
+
+	std::cout << "\n\n" << "Multi - Threaded Merge Sort" << std::endl;
+	printTimeResults(multiThreadedAverage, multiThreadedMax, multiThreadedMin);
+
+	double implementationSuperiorityRate = std::max(singleThreadedAverage, multiThreadedAverage) / min(singleThreadedAverage, multiThreadedAverage);
+	if (singleThreadedAverage < multiThreadedAverage)
+	{
+		std::cout << "\n\n" << "Single-threaded implementation is currently ";
+	}
+	else
+	{
+		std::cout << "\n\n" << "Multi-threaded implementation is currently ";
+	}
+
+	std::cout << std::fixed << std::setprecision(1) << implementationSuperiorityRate << " times faster." << std::endl;
+
+	std::getchar();
     return 0;
 }
