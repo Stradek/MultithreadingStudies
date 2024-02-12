@@ -37,8 +37,10 @@ public:
     template<class F, class... Args>
     auto enqueueJob(F&& function, Args... args) -> std::future<typename std::result_of<F(Args...)>::type>
     {
-        using ReturnType = typename std::invoke_result<F, Args...>::type;
+        // don't allow enqueueing after stopping the pool
+        assert(!m_stop)
 
+        using ReturnType = typename std::invoke_result<F, Args...>::type;
         auto task = std::make_shared<std::packaged_task<ReturnType()>>(
             std::bind(std::forward<F>(function), std::forward<Args>(args)...)
         );
@@ -46,11 +48,6 @@ public:
         std::future<ReturnType> res = task->get_future();
         {
             std::unique_lock<std::mutex> lock(m_queueMutex);
-
-            // don't allow enqueueing after stopping the pool
-            if(m_stop)
-                throw std::runtime_error("enqueue on stopped JobScheduler");
-
             m_tasks.emplace([task](){ (*task)(); });
         }
         m_workerThreadWaitCondition.notify_one();
