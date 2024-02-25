@@ -8,7 +8,7 @@ Repository consists of multithreading project where I have sandbox for implement
 `src\MultithreadedMergeSort`
 #### Description: 
 This project shows comparison between single-threaded and multi-threaded merge sort implementations.
-#### Finished project acceptance criteria:
+#### To-Do List:
 For both implementations of merge sort:
   - [x] I have both single-threaded and multi-threaded implementations of merge sort working
   - [x] I have function to test duration of both implementations
